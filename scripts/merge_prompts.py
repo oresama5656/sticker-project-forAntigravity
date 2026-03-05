@@ -1,37 +1,69 @@
 """
-outputs/prompts/ 内のすべての *_prompts.csv を1つに統合するスクリプト。
-統合ファイルは outputs/all_prompts.csv に出力される。
-元のCSVファイルには一切変更を加えない。
+outputs/prompts/ 内の未統合 *_prompts.csv を all_prompts.csv に追記し、
+統合済みCSVを outputs/prompts/merged/ に移動するスクリプト。
+
+- theme列にファイル名由来のテーマ名を付与
+- 既存の all_prompts.csv のデータ（done列含む）はそのまま保持
+- 統合済みCSVは merged/ に移動するため、次回実行時に重複しない
 """
 import csv
 import os
 import glob
+import shutil
 
 PROMPTS_DIR = 'outputs/prompts'
+MERGED_DIR = 'outputs/prompts/merged'
 OUTPUT_FILE = 'outputs/all_prompts.csv'
+HEADER = ['theme', 'prompt', 'done']
 
+# --- 1. 未統合CSVを探す ---
 csv_files = sorted(glob.glob(os.path.join(PROMPTS_DIR, '*_prompts.csv')))
 
 if not csv_files:
     print('統合対象のCSVファイルが見つかりませんでした。')
+    print('（outputs/prompts/ に *_prompts.csv がありません）')
     exit()
 
-all_rows = []
+# --- 2. 既存の all_prompts.csv を読み込む ---
+existing_rows = []
+if os.path.exists(OUTPUT_FILE):
+    with open(OUTPUT_FILE, 'r', encoding='utf-8-sig', newline='') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+        for row in reader:
+            if row and len(row) >= 2:
+                existing_rows.append(row)
+    print(f'既存データ: {len(existing_rows)}行（保持）')
 
+# --- 3. 新規CSVを読み込み ---
+new_rows = []
 for filepath in csv_files:
     theme = os.path.basename(filepath).replace('_prompts.csv', '')
     with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
         reader = csv.reader(f)
-        header = next(reader, None)  # ヘッダー行をスキップ
+        next(reader, None)  # ヘッダーをスキップ
+        count = 0
         for row in reader:
             if row:
-                all_rows.append(row)
-    print(f'  ✔ {theme} ({len(all_rows)}行)')
+                new_rows.append([theme, row[0], ''])
+                count += 1
+    print(f'  ★ {theme} → {count}行追加')
 
+# --- 4. all_prompts.csv に書き出す ---
 with open(OUTPUT_FILE, 'w', encoding='utf-8-sig', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['prompt'])
-    for row in all_rows:
+    writer.writerow(HEADER)
+    for row in existing_rows:
+        writer.writerow(row)
+    for row in new_rows:
         writer.writerow(row)
 
-print(f'\n統合完了: {OUTPUT_FILE} ({len(all_rows)}行)')
+# --- 5. 統合済みCSVを merged/ に移動 ---
+os.makedirs(MERGED_DIR, exist_ok=True)
+for filepath in csv_files:
+    dest = os.path.join(MERGED_DIR, os.path.basename(filepath))
+    shutil.move(filepath, dest)
+
+print(f'\n統合完了: {OUTPUT_FILE}')
+print(f'  既存 {len(existing_rows)}行 + 新規 {len(new_rows)}行 = 計 {len(existing_rows) + len(new_rows)}行')
+print(f'  統合済みCSVは {MERGED_DIR}/ に移動しました')

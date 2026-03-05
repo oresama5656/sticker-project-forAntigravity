@@ -18,11 +18,8 @@ sticker-project/
 │   ├── package_info.csv            # パッケージ情報（タイトル・説明文）
 │   ├── all_prompts.csv             # 統合プロンプト（merge_prompts.py で生成）
 │   └── prompts/                    # テーマ別プロンプトCSV
-│       ├── 和服美人ｘ猫ｘスタンダードあいさつ_prompts.csv
-│       ├── 和服美人ｘ猫ｘ気遣いあいさつ_prompts.csv
-│       ├── 和服美人ｘ猫ｘ敬語_prompts.csv
-│       ├── 和服美人ｘ猫ｘ猫好き_prompts.csv
-│       └── 和服美人ｘ猫ｘいつでも使える_prompts.csv
+│       ├── *.csv                   # 未統合のプロンプトCSV
+│       └── merged/                 # 統合済みCSV（自動移動先）
 └── README.md
 ```
 
@@ -46,15 +43,32 @@ CSVは `outputs/package_info.csv` に保存されます。
 python scripts/merge_prompts.py
 ```
 
-統合ファイルは `outputs/all_prompts.csv` に出力されます。  
-元のテーマ別CSVには一切変更を加えません。
+- `outputs/prompts/` にある未統合CSVを `outputs/all_prompts.csv` に**追記**
+- 各行に **theme列**（元のファイル名）が付与される
+- 統合済みCSVは `outputs/prompts/merged/` に自動移動
+- 既存の `all_prompts.csv` のデータ（done列含む）はそのまま保持
 
 ## 出力ファイルの分離ルール
 
 | ファイル | 保存先 | 用途 |
 |---|---|---|
-| テーマ別プロンプトCSV | `outputs/prompts/` | 画像生成AIへの入力 |
+| テーマ別プロンプトCSV（未統合） | `outputs/prompts/` | 画像生成AIへの入力 |
+| テーマ別プロンプトCSV（統合済） | `outputs/prompts/merged/` | バックアップ |
 | 統合プロンプトCSV | `outputs/all_prompts.csv` | 全テーマ一括処理用 |
 | パッケージ情報CSV | `outputs/package_info.csv` | LINE登録用メタデータ |
 
-> **Note:** `outputs/prompts/` と `outputs/` 直下を分離することで、プロンプトCSVの一括処理時に `package_info.csv` が巻き込まれることを防いでいます。
+## 統合の仕組み
+
+```
+outputs/prompts/
+  ├── 新テーマA_prompts.csv    ← 未統合（次回 merge で取り込まれる）
+  └── merged/
+        ├── テーマ1_prompts.csv  ← 統合済み（もう取り込まれない）
+        └── テーマ2_prompts.csv
+
+outputs/all_prompts.csv
+  theme          | prompt              | done
+  テーマ1        | P1: ACTION/PROPS... |  1    ← 処理済み（保持される）
+  テーマ2        | P1: ACTION/PROPS... |       ← 未処理
+  新テーマA      | P1: ACTION/PROPS... |       ← 次回統合時に追加
+```
