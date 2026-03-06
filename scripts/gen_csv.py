@@ -1,20 +1,84 @@
 import os
 import csv
 
+# ディレクトリの作成
 os.makedirs('outputs/prompts', exist_ok=True)
 
+# 54個のプロンプト（9個×6セット）のデータ定義
 rows = [
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono bowing politely softly\" | TEXT=\"おはよう\" P2: ACTION/PROPS=\"A beautiful woman in a kimono sleepy rubbing eyes\" | TEXT=\"ふぁあ\" P3: ACTION/PROPS=\"A beautiful woman in a kimono drinking hot tea from a cup\" | TEXT=\"ほっ\" P4: ACTION/PROPS=\"A beautiful woman in a kimono fixing her hairpin looking at mirror\" | TEXT=\"よしっ\" P5: ACTION/PROPS=\"A beautiful woman in a kimono turning back smiling\" | TEXT=\"いってきまーす\" P6: ACTION/PROPS=\"A beautiful woman in a kimono waving hand gently\" | TEXT=\"いってらっしゃい\" P7: ACTION/PROPS=\"A beautiful woman in a kimono tilting head question mark\" | TEXT=\"ん？\" P8: ACTION/PROPS=\"A beautiful woman in a kimono walking fast holding hem\" | TEXT=\"あわわわ\" P9: ACTION/PROPS=\"A beautiful woman in a kimono making a peace sign happily\" | TEXT=\"ばっちり\"',
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono working on a laptop seriously\" | TEXT=\"作業中\" P2: ACTION/PROPS=\"A beautiful woman in a kimono holding a phone looking surprised\" | TEXT=\"えっ\" P3: ACTION/PROPS=\"A beautiful woman in a kimono nodding firmly with crossed arms\" | TEXT=\"なるほど\" P4: ACTION/PROPS=\"A beautiful woman in a kimono raising hand brightly\" | TEXT=\"はーい\" P5: ACTION/PROPS=\"A beautiful woman in a kimono bowing deeply in apology\" | TEXT=\"ごめんなさい\" P6: ACTION/PROPS=\"A beautiful woman in a kimono holding hands together pleading\" | TEXT=\"おねがい\" P7: ACTION/PROPS=\"A beautiful woman in a kimono clapping hands joyfully\" | TEXT=\"さすが\" P8: ACTION/PROPS=\"A beautiful woman in a kimono sweating nervously wiping forehead\" | TEXT=\"あせあせ\" P9: ACTION/PROPS=\"A beautiful woman in a kimono putting a hand on chest relieved\" | TEXT=\"よかった\"',
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono holding a traditional umbrella walking\" | TEXT=\"おでかけ\" P2: ACTION/PROPS=\"A beautiful woman in a kimono looking excitedly at a cake\" | TEXT=\"わぁぁ\" P3: ACTION/PROPS=\"A beautiful woman in a kimono eating dango holding a skewer\" | TEXT=\"もぐもぐ\" P4: ACTION/PROPS=\"A beautiful woman in a kimono holding a shopping bag smiling\" | TEXT=\"かいました\" P5: ACTION/PROPS=\"A beautiful woman in a kimono looking at a map confused\" | TEXT=\"まよった\" P6: ACTION/PROPS=\"A beautiful woman in a kimono pointing finger like discovering something\" | TEXT=\"あった\" P7: ACTION/PROPS=\"A beautiful woman in a kimono walking tiredly looking exhausted\" | TEXT=\"つかれた\" P8: ACTION/PROPS=\"A beautiful woman in a kimono sitting on a bench resting\" | TEXT=\"きゅうけい\" P9: ACTION/PROPS=\"A beautiful woman in a kimono holding a smartphone taking photo\" | TEXT=\"パシャ\"',
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono laughing elegantly covering mouth\" | TEXT=\"ふふふ\" P2: ACTION/PROPS=\"A beautiful woman in a kimono big smile jumping happily\" | TEXT=\"やったー\" P3: ACTION/PROPS=\"A beautiful woman in a kimono puffing cheeks angrily\" | TEXT=\"むっ\" P4: ACTION/PROPS=\"A beautiful woman in a kimono looking sad tearing up\" | TEXT=\"ぐすん\" P5: ACTION/PROPS=\"A beautiful woman in a kimono shocked pale face\" | TEXT=\"ガーン\" P6: ACTION/PROPS=\"A beautiful woman in a kimono eyes sparkling with excitement\" | TEXT=\"きゅん\" P7: ACTION/PROPS=\"A beautiful woman in a kimono sighing heavily looking down\" | TEXT=\"はぁ\" P8: ACTION/PROPS=\"A beautiful woman in a kimono blushing holding cheeks\" | TEXT=\"てれる\" P9: ACTION/PROPS=\"A beautiful woman in a kimono winking cutely pointing\" | TEXT=\"ないしょ\"',
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono holding a sake cup smiling\" | TEXT=\"かんぱい\" P2: ACTION/PROPS=\"A beautiful woman in a kimono drinking beer happily\" | TEXT=\"ぷはー\" P3: ACTION/PROPS=\"A beautiful woman in a kimono slightly drunk red face laughing\" | TEXT=\"えへへ\" P4: ACTION/PROPS=\"A beautiful woman in a kimono resting head on table sleepily\" | TEXT=\"うとうと\" P5: ACTION/PROPS=\"A beautiful woman in a kimono looking at the moon elegantly\" | TEXT=\"きれーい\" P6: ACTION/PROPS=\"A beautiful woman in a kimono stretching shoulders relaxed\" | TEXT=\"のびー\" P7: ACTION/PROPS=\"A beautiful woman in a kimono lying on tatami rolling\" | TEXT=\"ごろごろ\" P8: ACTION/PROPS=\"A beautiful woman in a kimono waving hand lightly saying bye\" | TEXT=\"またね\" P9: ACTION/PROPS=\"A beautiful woman in a kimono sleeping peacefully in futon\" | TEXT=\"おやすみ\"',
-    'P1: ACTION/PROPS=\"A beautiful woman in a kimono giving an OK sign with fingers\" | TEXT=\"りょうかい\" P2: ACTION/PROPS=\"A beautiful woman in a kimono crossing arms making an X sign\" | TEXT=\"だめ\" P3: ACTION/PROPS=\"A beautiful woman in a kimono thumbs up smiling confidently\" | TEXT=\"いいね\" P4: ACTION/PROPS=\"A beautiful woman in a kimono holding a fan covering face coyly\" | TEXT=\"うふふ\" P5: ACTION/PROPS=\"A beautiful woman in a kimono peeking from behind a folding screen\" | TEXT=\"じーっ\" P6: ACTION/PROPS=\"A beautiful woman in a kimono pointing a finger directly\" | TEXT=\"それな\" P7: ACTION/PROPS=\"A beautiful woman in a kimono clapping hands lightly\" | TEXT=\"パチパチ\" P8: ACTION/PROPS=\"A beautiful woman in a kimono bowing slightly formal\" | TEXT=\"かしこまりました\" P9: ACTION/PROPS=\"A beautiful woman in a kimono smiling brightly waving both hands\" | TEXT=\"ありがとう\"'
+    'prompt',
+    # セット1: 丁寧な応対と挨拶
+    'P1: ACTION/PROPS="Bowing deeply and gracefully with hands folded in front" | TEXT="左様でございます" '
+    'P2: ACTION/PROPS="Nodding gently with a calm smile" | TEXT="かしこまりました" '
+    'P3: ACTION/PROPS="Opening a sliding paper door (shoji) elegantly" | TEXT="おはようございます" '
+    'P4: ACTION/PROPS="Standing under a cherry blossom tree, looking at the sky" | TEXT="良き一日を" '
+    'P5: ACTION/PROPS="Pouring green tea into a cup with precision" | TEXT="お茶をどうぞ" '
+    'P6: ACTION/PROPS="Holding a traditional paper fan (sensu) half-closed" | TEXT="ご機嫌麗しゅう" '
+    'P7: ACTION/PROPS="Walking gracefully with a Japanese umbrella (bangasa) in the rain" | TEXT="お足元にご用心" '
+    'P8: ACTION/PROPS="Sitting in seiza (kneeling) on a tatami mat" | TEXT="お座りください" '
+    'P9: ACTION/PROPS="Waving a hand softly with a gentle smile" | TEXT="いってらっしゃいませ" ',
+    
+    # セット2: 気遣いと感謝
+    'P1: ACTION/PROPS="Holding a warm damp towel (oshibori) on a tray" | TEXT="お疲れ様です" '
+    'P2: ACTION/PROPS="Looking concerned with a hand to her cheek" | TEXT="ご無理なさらず" '
+    'P3: ACTION/PROPS="Bowing slightly with a hand on her chest" | TEXT="恐縮です" '
+    'P4: ACTION/PROPS="Pressing hands together in a prayer-like gesture of gratitude" | TEXT="痛み入ります" '
+    'P5: ACTION/PROPS="Offering a small wrapped gift with both hands" | TEXT="心ばかりの品です" '
+    'P6: ACTION/PROPS="Looking admiringly at something with a soft smile" | TEXT="流石でございます" '
+    'P7: ACTION/PROPS="Wiping a desk or table very carefully" | TEXT="いつも感謝しております" '
+    'P8: ACTION/PROPS="Looking at the moon with a peaceful expression" | TEXT="お体ご自愛ください" '
+    'P9: ACTION/PROPS="Holding a lantern in the evening, illuminating the path" | TEXT="おかげさまで" ',
+    
+    # セット3: 承諾とお祝い
+    'P1: ACTION/PROPS="Placing a hand on a letter or scroll, nodding" | TEXT="承知いたしました" '
+    'P2: ACTION/PROPS="Clapping hands softly with a bright face" | TEXT="喜んで" '
+    'P3: ACTION/PROPS="Throwing colorful confetti made of paper" | TEXT="おめでとうございます" '
+    'P4: ACTION/PROPS="Holding a celebratory folding fan with colorful patterns" | TEXT="おめでたいですね" '
+    'P5: ACTION/PROPS="Lifting a small sake cup (ochoko) for a toast" | TEXT="祝杯を" '
+    'P6: ACTION/PROPS="Writing a congratulatory message with a brush" | TEXT="吉報ですわ" '
+    'P7: ACTION/PROPS="Smiling brightly with cherry blossoms fluttering around" | TEXT="嬉しい限りです" '
+    'P8: ACTION/PROPS="Looking at a blooming flower with a touching expression" | TEXT="感無量でございます" '
+    'P9: ACTION/PROPS="Bowing gracefully with a radiant aura" | TEXT="お任せくださいませ" ',
+    
+    # セット4: 控えめな主張と断り
+    'P1: ACTION/PROPS="Holding a closed fan to her lips, eyes sharp but calm" | TEXT="お言葉ですが" '
+    'P2: ACTION/PROPS="Nodding with a knowing and mysterious smile" | TEXT="存じております" '
+    'P3: ACTION/PROPS="Raising a hand slightly in a stopping gesture" | TEXT="致しかねます" '
+    'P4: ACTION/PROPS="Looking away slightly with an apologetic but firm smile" | TEXT="ご遠慮申し上げます" '
+    'P5: ACTION/PROPS="Sighing softly with a hand to her forehead" | TEXT="困りましたわ" '
+    'P6: ACTION/PROPS="Fixing her kimono collar with a determined look" | TEXT="そこは譲れません" '
+    'P7: ACTION/PROPS="Pointing to a rule book or scroll" | TEXT="決まりですので" '
+    'P8: ACTION/PROPS="Holding a hand over her heart with a serious face" | TEXT="滅相もございません" '
+    'P9: ACTION/PROPS="Watching someone from behind a screen (sudare)" | TEXT="伺っております" ',
+    
+    # セット5: 驚きと共感
+    'P1: ACTION/PROPS="Covering mouth with a sleeve in surprise" | TEXT="あらまあ" '
+    'P2: ACTION/PROPS="Eyes wide with a small gasp" | TEXT="おや、これは" '
+    'P3: ACTION/PROPS="Nodding deeply in agreement" | TEXT="左様ですね" '
+    'P4: ACTION/PROPS="Looking sympathetic with a gentle gaze" | TEXT="お察しいたします" '
+    'P5: ACTION/PROPS="Sitting together and looking at the same scenery" | TEXT="同感でございます" '
+    'P6: ACTION/PROPS="Holding a hand to her ear as if listening closely" | TEXT="なんですって？" '
+    'P7: ACTION/PROPS="Tilting head with a curious expression" | TEXT="不思議なこともありますのね" '
+    'P8: ACTION/PROPS="Holding a teacup and feeling the breeze" | TEXT="風が心地よいですね" '
+    'P9: ACTION/PROPS="Looking at the sky with a thoughtful expression" | TEXT="時は流れゆくものですね" ',
+    
+    # セット6: 励ましと決意
+    'P1: ACTION/PROPS="Putting a hand on someone\'s shoulder gently" | TEXT="きっと大丈夫です" '
+    'P2: ACTION/PROPS="Clenching a small fist hidden in her sleeve" | TEXT="陰ながら応援しております" '
+    'P3: ACTION/PROPS="Looking at the sunrise with a strong gaze" | TEXT="精進いたします" '
+    'P4: ACTION/PROPS="Holding a katana hilt with a serious expression" | TEXT="覚悟はできております" '
+    'P5: ACTION/PROPS="Bowing very deeply in a sincere apology" | TEXT="申し訳ございません" '
+    'P6: ACTION/PROPS="Looking up with hopeful eyes" | TEXT="楽しみにしております" '
+    'P7: ACTION/PROPS="Waiting by a gate with a longing look" | TEXT="待ち遠しいですわ" '
+    'P8: ACTION/PROPS="Closing eyes and taking a deep breath" | TEXT="落ち着いてくださいな" '
+    'P9: ACTION/PROPS="Holding out a cup of tea for someone stressed" | TEXT="まずは一服いかがですか" '
 ]
 
-file_path = 'outputs/prompts/和服美人の日常_prompts.csv'
-
+# CSVファイルへの書き込み
+file_path = 'outputs/prompts/和服美人_敬語_prompts.csv'
 with open(file_path, 'w', encoding='utf-8-sig', newline='') as f:
     writer = csv.writer(f)
     for row in rows:
         writer.writerow([row])
+
+print(f"Successfully created {file_path}")

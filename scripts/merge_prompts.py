@@ -11,9 +11,14 @@ import os
 import glob
 import shutil
 
-PROMPTS_DIR = 'outputs/prompts'
-MERGED_DIR = 'outputs/prompts/merged'
-OUTPUT_FILE = 'outputs/all_prompts.csv'
+# --- 0. パスの設定 (スクリプトの場所を基準にする) ---
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# scripts の親がプロジェクトルート
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+
+PROMPTS_DIR = os.path.join(PROJECT_ROOT, 'outputs', 'prompts')
+MERGED_DIR = os.path.join(PROJECT_ROOT, 'outputs', 'prompts', 'merged')
+OUTPUT_FILE = os.path.join(PROJECT_ROOT, 'outputs', 'all_prompts.csv')
 HEADER = ['theme', 'prompt', 'done']
 
 # --- 1. 未統合CSVを探す ---
