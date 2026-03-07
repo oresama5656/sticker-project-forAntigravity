@@ -5,31 +5,16 @@ rows = [
     # ヘッダー行
     ['No', 'theme', 'title_en', 'desc_en', 'title_ja', 'desc_ja', 'copy_right', 'ai_flag', 'taste_category', 'character_category', 'zip_path'],
     
-    # 考案したデータ（CSVの個数分作成する）
-    ["1", "和服美人ｘ春を感じるｘ満開の桜", "Spring Kimono: Cherry Blossoms", "Beautiful kimono woman enjoying full bloom cherry blossoms. Heartwarming spring stickers.", "春の和服美人〜満開の桜〜", "満開の桜と和服美人の春を感じるスタンプです。お花見シーズンにぴったりな心温まるデザイン。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["2", "和服美人ｘ春を感じるｘ和菓子とお茶", "Spring Kimono: Tea & Sweets", "Relaxing spring tea time with Japanese sweets. Beautiful kimono woman stickers.", "春の和服美人〜和菓子とお茶〜", "春のひとときを和菓子とお茶で楽しむ和服美人のスタンプ。ほっと一息つきたい時のトークにどうぞ。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["3", "和服美人ｘ春を感じるｘ日本の伝統色（淡いピンクや萌黄色）", "Spring Kimono: Traditional Colors", "Elegant kimono woman featuring traditional Japanese spring colors like pale pink and light green.", "春の和服美人〜日本の伝統色〜", "淡いピンクや萌黄色の伝統色が美しい和服美人のスタンプです。春の装いで優雅なトークを演出します。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["4", "和服美人ｘ春を感じるｘ縁側でのうたた寝", "Spring Kimono: Nap on the Porch", "Kimono woman napping on a sunny spring porch. Gentle and relaxing everyday stickers.", "春の和服美人〜縁側でのうたた寝〜", "ポカポカ陽気の春、縁側でうたた寝する和服美人のスタンプ。のんびりした空気が癒やしを届けます。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["5", "和服美人ｘ春を感じるｘ大正ロマン・レトロモダン", "Spring Kimono: Taisho Roman", "Retro modern kimono aesthetics with a spring breeze. Stylish and elegant classic designs.", "春の和服美人〜大正ロマン・レトロモダン〜", "レトロモダンでお洒落な着物姿のスタンプ。大正ロマンの雰囲気と春の華やかさがトークを彩ります。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["6", "和服美人ｘ春を感じるｘ庭園に集まる小鳥", "Spring Kimono: Little Birds", "Kimono woman interacting with little birds in a spring garden. Cute and peaceful scenes.", "春の和服美人〜庭園に集まる小鳥〜", "美しい日本庭園と可愛い小鳥たちに囲まれた和服美人のスタンプ。春の和やかな空気を伝えます。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["7", "和服美人ｘ春を感じるｘお花見弁当の彩り", "Spring Kimono: Hanami Bento", "Enjoying colorful spring cherry blossom bento boxes. Joyful and highly appetizing kimono stickers.", "春の和服美人〜お花見弁当の彩り〜", "彩り豊かなお弁当を持ってお花見を楽しむ和服美人のスタンプ。春のランチタイムやピクニックのお誘いに。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["8", "和服美人ｘ春を感じるｘしっとり濡れる菜種梅雨", "Spring Kimono: Spring Rain", "Elegant kimono woman standing gracefully in the gentle spring rain. Atmospheric and serene.", "春の和服美人〜菜種梅雨〜", "しっとりとした春の雨（菜種梅雨）の中、和傘を差して歩く和服美人のスタンプ。情感豊かなシーンに。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["9", "和服美人ｘ春を感じるｘ京都・鎌倉の寺社巡り", "Spring Kimono: Temple Tour", "Sightseeing at ancient temples in Kyoto or Kamakura during spring. Travel and outing concepts.", "春の和服美人〜寺社巡り〜", "京都や鎌倉などの古都を春に散策する和服美人のスタンプ。お出かけやご旅行の会話にぴったりです。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["10", "和服美人ｘ春を感じるｘ幻想的な夜桜", "Spring Kimono: Magical Night Cherry", "Fascinating and beautiful night cherry blossoms with an elegant kimono woman.", "春の和服美人〜幻想的な夜桜〜", "ライトアップされた幻想的な夜桜と和服美人のスタンプ。夜の落ち着いた大人のご挨拶に最適です。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["11", "和服美人ｘ春を感じるｘ風に舞う花びら", "Spring Kimono: Dancing Petals", "Spring breeze blowing soft cherry petals around a beautiful kimono woman.", "春の和服美人〜風に舞う花びら〜", "春風に舞う花びらと和服美人の美しく儚いスタンプ。季節の移ろいを感じるメッセージに。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["12", "和服美人ｘ春を感じるｘ雛祭りと桃の花", "Spring Kimono: Peach Blossoms", "Celebrating girls' festival with peach blossoms and elegant kimono styles.", "春の和服美人〜雛祭りと桃の花〜", "桃の花やひな祭りをモチーフにした和服美人のスタンプ。春の訪れを祝う可愛いデザインです。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["13", "和服美人ｘ春を感じるｘ春の味覚（苺や筍）", "Spring Kimono: Spring Taste", "Enjoying spring delicacies like strawberries and bamboo shoots. Cute food-themed kimono stickers.", "春の和服美人〜春の味覚〜", "苺や筍といった春の美味しい味覚を楽しむ和服美人のスタンプ。食欲の春を満喫するトークに。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["14", "和服美人ｘ春を感じるｘ季節の挨拶と丁寧な言葉", "Spring Kimono: Polite Greetings", "Polite spring greetings delivered by a graceful woman in a neat kimono.", "春の和服美人〜季節の挨拶と丁寧語〜", "かしこまった春の挨拶や丁寧な言葉遣いを集めたスタンプ。目上の方やお仕事のやり取りにも使えます。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["15", "和服美人ｘ春を感じるｘ卒業と新しい門出", "Spring Kimono: New Beginnings", "Celebrating graduations and new chapters in spring. Supportive and encouraging messages.", "春の和服美人〜卒業と新しい門出〜", "卒業や新生活など、春の新しい門出を祝し応援する和服美人スタンプ。お祝いのメッセージにおすすめです。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["16", "和服美人ｘ春を感じるｘ柳の芽吹きと水辺の散歩", "Spring Kimono: Riverside Walk", "Walking by the river with budding willows. Refreshing and calm spring kimono aesthetics.", "春の和服美人〜柳の芽吹きと水辺〜", "柳が芽吹く春の水辺を散歩する和服美人のスタンプ。爽やかで穏やかな日常のワンシーンをお届けします。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["17", "和服美人ｘ春を感じるｘ読書と春の日差し", "Spring Kimono: Reading in Sunlight", "Reading a book under the warm spring sunlight. Gentle and intellectual kimono designs.", "春の和服美人〜読書と春の日差し〜", "暖かい春の日差しの中で読書を楽しむ和服美人のスタンプ。静かで知的なリラックスタイムに。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["18", "和服美人ｘ春を感じるｘ花言葉に込めた想い", "Spring Kimono: Flower Language", "Conveying feelings through spring flower meanings. Romantic and beautiful kimono woman.", "春の和服美人〜花言葉に込めた想い〜", "春の花とその花言葉に想いを乗せた和服美人のスタンプ。大切な人へ特別なメッセージを伝えましょう。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["19", "和服美人ｘ春を感じるｘそよ風と揺れる袂", "Spring Kimono: Whispering Breeze", "Kimono sleeves fluttering softly in the spring breeze. Expressive and gentle moments.", "春の和服美人〜そよ風と揺れる袂〜", "心地よい春のそよ風に袂（たもと）が揺れる和服美人のスタンプ。軽やかで涼しげな表情が魅力です。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""],
-    ["20", "和服美人ｘ春を感じるｘ現代のカフェと和装", "Spring Kimono: Modern Cafe", "Enjoying a modern cafe visit wearing a kimono in spring. Stylish crossover scenarios.", "春の和服美人〜現代のカフェと和装〜", "和装でモダンなカフェを楽しむ現代的な和服美人のスタンプ。日常的で使いやすいお洒落なデザインです。", "©ryo", "TRUE", "季節・行事", "女性キャラ", ""]
+    # 考案したデータ（5個）
+    ['1', '着物美人_敬語', 'Kimono Beauty: Polite Daily', 'Elegant kimono woman speaking politely for your everyday conversations and greetings.', '着物美人で好印象！毎日使える大人の気遣いや丁寧な敬語ご挨拶', '上品な和服の女性が、気遣いあふれる言葉であなたの気持ちを代弁。「了解」「お疲れ様」など毎日使いやすい汎用的な語句を網羅し、職場や目上の方への日常会話・連絡に最適。', '©ryo', 'TRUE', '敬語・丁寧', '女性キャラ', ''],
+    ['2', '着物美人_癒し', 'Kimono Beauty: Healing Words', 'Healing your busy days with kind words and gentle smiles from a beautiful kimono woman.', '着物美人の癒やし♪毎日の会話で大活躍する優しい挨拶と思いやり', '柔らかな笑顔の着物美人が、忙しい毎日にちょっとした癒やしをお届け。「了解です」「ありがとう」など日常会話でヘビロテ必至！相手への労いや思いやりを優しく伝えられるセット。', '©ryo', 'TRUE', 'ほんわか・癒し', '女性キャラ', ''],
+    ['3', '着物美人_シュール', 'Kimono Beauty: Surreal Truths', 'A surreal kimono beauty expressing your true feelings and making awkward moments funny.', '着物美人の本音爆弾！建前と裏腹なシュールな日常や気まずい場面', '凛とした着物姿の女性が、言いにくい本音や感情を堂々と代弁！気まずい状況を笑いに変えるネタ要素に加えて、「了解（真顔）」など普段使いしやすい表現もバッチリ収録されて便利。', '©ryo', 'TRUE', 'シュール', '女性キャラ', ''],
+    ['4', '着物美人_方言', 'Kimono Beauty: Cute Dialect', 'Express your feelings warmly using elegant Japanese regional dialects and cute phrases.', '着物美人の京言葉！はんなり可愛い方言で伝える毎日のほんね挨拶', '艶やかな着物美人が「おおきに」「かんにんな」と可愛い京風の方言であなたの感情をご案内！毎日の「了解」「お疲れ様」の代わりに使えて、日常トークがパッと華やぐこと間違いなし。', '©ryo', 'TRUE', '方言・スラング', '女性キャラ', ''],
+    ['5', '着物美人_クール', 'Kimono Beauty: Cool & Work', 'Cool Japanese kimono lady supporting your busy working days with quick and stylish replies.', '着物美人の仕事術！働く大人女子が毎日使えるクールな返信セット', 'デキる大人の着物美人が、あなたの忙しい毎日をサポート。「承知いたしました」「お疲れ様です」など、仕事仲間や友人への日々の連絡に何度も使える汎用性の高いスタイリッシュな内容。', '©ryo', 'TRUE', 'カッコいい', '女性キャラ', '']
 ]
 
 os.makedirs('outputs', exist_ok=True)
-with open('outputs/package_info.csv', 'w', encoding='utf-8-sig', newline='') as f:
+with open('outputs/package_info_kimono.csv', 'w', encoding='utf-8-sig', newline='') as f:
     writer = csv.writer(f)
     for row in rows:
         writer.writerow(row)
