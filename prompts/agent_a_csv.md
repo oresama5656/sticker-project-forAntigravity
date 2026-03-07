@@ -22,49 +22,54 @@ Implementation_Rules:
   - これにより、Excelでのセル分割や文字化けを完全に防止する。
 
 Script_Rules (gen_csv.py の書き方):
-  - テーマごとに個別のCSVファイルを生成すること。出力ファイル名は `outputs/prompts/[テーマ名]_prompts.csv` とし、必ず `outputs/prompts/` フォルダに出力すること。
-  - スクリプト冒頭で `os.makedirs('outputs/prompts', exist_ok=True)` を実行し、ディレクトリが存在することを確認すること。
-  - ファイルは必ず `encoding='utf-8-sig'`（BOM付きUTF-8）で開くこと。これによりExcelでの日本語文字化けを防ぐ。
-  - 書き込みには必ず Python 標準ライブラリの `csv.writer` を使用すること。これによりダブルクォーテーションのエスケープやセル分割の問題を完全に回避する。
-  - 各セット（P1〜P9）はPythonのリスト内の1つの文字列として定義し、`writer.writerow([row])` で1行ずつ書き出すこと。
-
+  - 複雑なPythonのリストや辞書定義はコードを不必要に長くするため一切書かないこと！
+  - 以下の `Output_Example` のように、テキストデータをヒアドキュメント（トリプルクォート `"""`）の中に入れ、それをPythonの `split('\n')` を使ってシンプルに書き出す仕組みにすること。
+  - 出力ファイル名は `outputs/prompts/[テーマ名]_prompts.csv` とし、必ず `encoding='utf-8-sig'` で開くこと。
+  - スクリプト冒頭で必ず `os.makedirs('outputs/prompts', exist_ok=True)` を実行しフォルダを用意すること。
+  
 Data_Format_Rules:
-  - CSVの1行目（A1セル）には、必ず列のタイトルとして `prompt` とだけ記述して出力すること。
-  - 9個のプロンプト（P1〜P9）を1セットとし、P1からP9までを半角スペース区切りで1つの文字列に繋げること。
-  - 各プロンプトの形式: P番号: ACTION/PROPS="英語の動作・小道具" | TEXT="短い日本語"
-  - セット内のダブルクォーテーションはPythonの文字列内でバックスラッシュエスケープ (\") を使い、csv.writerに正しいクォート処理を任せること。
-  - 各CSVファイルは、タイトル行を含めファイル全体で合計7行（タイトル1行 ＋ データ6セット）になるようにすること。
-  - ユーザーへの前後の挨拶や解説は一切不要。速やかにスクリプト作成と実行のみを行うこと。
+  - CSVの1行目（A1セル）には、必ず列のタイトルとして `prompt` と記述すること。
+  - 9個のプロンプト（P1〜P9）を1セットとし、P1からP9までを半角スペース区切りで1つの文字列に繋げ、一行に記述すること。
+  - 各プロンプトの形式: `P番号: ACTION/PROPS="英語の動作・小道具" | TEXT="短い日本語"`
+  - ユーザーへの前後の挨拶や解説は一切不要。速やかに下記の短いフォーマットのスクリプト作成のみを行うこと。
 
-# Output_Example (gen_csv.py のコード構造例)
+# Output_Example (gen_csv.py の超シンプル・短いコード構造例。この構成を厳守すること)
 ```python
 import os
 import csv
 
 os.makedirs('outputs/prompts', exist_ok=True)
 
-def generate_theme_csv(theme_name, data_rows):
-    """テーマごとにCSVファイルを生成する関数"""
-    filename = f'outputs/prompts/{theme_name}_prompts.csv'
+def save_csv(theme, raw_text):
+    filename = f'outputs/prompts/{theme}_prompts.csv'
     with open(filename, 'w', encoding='utf-8-sig', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['prompt'])
-        for row in data_rows:
-            writer.writerow([row])
+        for line in raw_text.strip().split('\n'):
+            if line.strip():
+                # Pythonのリストにパースしなくても単純に1列として出力するだけでよい
+                writer.writerow([line.strip()])
 
-# --- テーマ1 ---
-theme1_data = [
-    'P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."',
-    # ... 合計6つの文字列
-]
-generate_theme_csv('テーマ名1', theme1_data)
+# ================================
+# データ定義部（Pythonのリストではなく単なる巨大文字列にする）
+# ================================
 
-# --- テーマ2 ---
-theme2_data = [
-    'P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."',
-    # ... 合計6つの文字列
-]
-generate_theme_csv('テーマ名2', theme2_data)
+theme1_data = """
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+"""
+save_csv('テーマ名1', theme1_data)
+
+# テーマ2がある場合は変数を上書き（または別名定義）して呼び出す
+theme2_data = """
+P1: ACTION/PROPS="..." | TEXT="..." ... P9: ACTION/PROPS="..." | TEXT="..."
+# (省略: 計6行)
+"""
+save_csv('テーマ名2', theme2_data)
 
 # ... 全テーマ分を同様に繰り返す
 ```
