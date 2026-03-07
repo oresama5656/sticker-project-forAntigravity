@@ -21,54 +21,65 @@ MERGED_DIR = os.path.join(PROJECT_ROOT, 'outputs', 'prompts', 'merged')
 OUTPUT_FILE = os.path.join(PROJECT_ROOT, 'outputs', 'all_prompts.csv')
 HEADER = ['theme', 'prompt', 'done']
 
-# --- 1. 未統合CSVを探す ---
-csv_files = sorted(glob.glob(os.path.join(PROMPTS_DIR, '*_prompts.csv')))
+def run_merge():
+    """
+    CSV結合処理を実行し、結果メッセージを返す関数。
+    """
 
-if not csv_files:
-    print('統合対象のCSVファイルが見つかりませんでした。')
-    print('（outputs/prompts/ に *_prompts.csv がありません）')
-    exit()
+    # --- 1. 未統合CSVを探す ---
+    csv_files = sorted(glob.glob(os.path.join(PROMPTS_DIR, '*_prompts.csv')))
 
-# --- 2. 既存の all_prompts.csv を読み込む ---
-existing_rows = []
-if os.path.exists(OUTPUT_FILE):
-    with open(OUTPUT_FILE, 'r', encoding='utf-8-sig', newline='') as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
-        for row in reader:
-            if row and len(row) >= 2:
-                existing_rows.append(row)
-    print(f'既存データ: {len(existing_rows)}行（保持）')
+    if not csv_files:
+        msg = '統合対象のCSVファイルが見つかりませんでした。\n（outputs/prompts/ に *_prompts.csv がありません）'
+        print(msg)
+        return False, msg
 
-# --- 3. 新規CSVを読み込み ---
-new_rows = []
-for filepath in csv_files:
-    theme = os.path.basename(filepath).replace('_prompts.csv', '')
-    with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
-        reader = csv.reader(f)
-        next(reader, None)  # ヘッダーをスキップ
-        count = 0
-        for row in reader:
-            if row:
-                new_rows.append([theme, row[0], ''])
-                count += 1
-    print(f'  ★ {theme} → {count}行追加')
+    # --- 2. 既存の all_prompts.csv を読み込む ---
+    existing_rows = []
+    if os.path.exists(OUTPUT_FILE):
+        with open(OUTPUT_FILE, 'r', encoding='utf-8-sig', newline='') as f:
+            reader = csv.reader(f)
+            header = next(reader, None)
+            for row in reader:
+                if row and len(row) >= 2:
+                    existing_rows.append(row)
+        print(f'既存データ: {len(existing_rows)}行（保持）')
 
-# --- 4. all_prompts.csv に書き出す ---
-with open(OUTPUT_FILE, 'w', encoding='utf-8-sig', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(HEADER)
-    for row in existing_rows:
-        writer.writerow(row)
-    for row in new_rows:
-        writer.writerow(row)
+    # --- 3. 新規CSVを読み込み ---
+    new_rows = []
+    for filepath in csv_files:
+        theme = os.path.basename(filepath).replace('_prompts.csv', '')
+        with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
+            reader = csv.reader(f)
+            next(reader, None)  # ヘッダーをスキップ
+            count = 0
+            for row in reader:
+                if row:
+                    new_rows.append([theme, row[0], ''])
+                    count += 1
+        print(f'  ★ {theme} → {count}行追加')
 
-# --- 5. 統合済みCSVを merged/ に移動 ---
-os.makedirs(MERGED_DIR, exist_ok=True)
-for filepath in csv_files:
-    dest = os.path.join(MERGED_DIR, os.path.basename(filepath))
-    shutil.move(filepath, dest)
+    # --- 4. all_prompts.csv に書き出す ---
+    with open(OUTPUT_FILE, 'w', encoding='utf-8-sig', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(HEADER)
+        for row in existing_rows:
+            writer.writerow(row)
+        for row in new_rows:
+            writer.writerow(row)
 
-print(f'\n統合完了: {OUTPUT_FILE}')
-print(f'  既存 {len(existing_rows)}行 + 新規 {len(new_rows)}行 = 計 {len(existing_rows) + len(new_rows)}行')
-print(f'  統合済みCSVは {MERGED_DIR}/ に移動しました')
+    # --- 5. 統合済みCSVを merged/ に移動 ---
+    os.makedirs(MERGED_DIR, exist_ok=True)
+    for filepath in csv_files:
+        dest = os.path.join(MERGED_DIR, os.path.basename(filepath))
+        shutil.move(filepath, dest)
+
+    success_msg = (f'統合完了: {OUTPUT_FILE}\n'
+                   f'既存 {len(existing_rows)}行 + 新規 {len(new_rows)}行 = 計 {len(existing_rows) + len(new_rows)}行\n'
+                   f'統合済みCSVは {MERGED_DIR}/ に移動しました')
+    
+    print(success_msg)
+    return True, success_msg
+
+if __name__ == '__main__':
+    run_merge()
