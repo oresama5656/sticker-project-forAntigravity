@@ -1,0 +1,40 @@
+[TASK]
+Generate ONE large, single, unified image composed of 9 distinctly defined square scenes arranged in a cleanly organized, perfectly symmetrical 3x3 array, tailored for messaging app stickers with text.
+
+[FORMAT]
+ASPECT_RATIO ::= "1:1 square format. The final overall output image MUST be ONE large, perfect square."
+
+[GLOBAL_PARAMETERS]
+STYLE ::= "2D Illustration, pop and cute cartoon/anime style. MUST use thick and uniform outlines, pastel colors, and keep the design simple for high visibility on small smartphone screens."
+
+CAMERA ::= "Bust-up (upper body) or face close-up shot. The subject MUST have highly exaggerated facial expressions (e.g., extremely big eyes, wide open mouth) to clearly convey strong emotions at a glance."
+
+ENVIRONMENT ::= "Solid color background (e.g., green solid background) that NEVER blends with the character's clothing or skin colors, to perfectly facilitate subsequent chroma key transparency. The background MUST be a single uniform, and continuous background. Strictly NO grid lines, NO panel borders, and NO framing between the 9 elements to ensure a perfectly seamless canvas. Crucially, the solid background color itself MUST extend to all edges of each individual panel, creating clear, abundant, thick, and perfectly uniform empty background padding (margin) surrounding subject and text in EACH individual unit."
+
+TEXT_STYLE ::= "SUPER LARGE (Deka-moji), thick, bold Japanese text occupying a significant portion of the panel. The text MUST have a strong, thick outline (stroke) to ensure high contrast and maximum readability. Prefer rounded or handwritten-style typography aesthetics. The text itself should also be contained within the empty margins."
+
+LAYOUT_RULES ::= "Discrete panel grid organized cleanly into an evenly distributed 3x3 grid layout. Although panels are arranged in a 3x3 array, they must be distinctly separated as nine independent units. Within each panel, all elements (character, text) MUST be packaged as a single, cohesive sticker unit. Every sticker unit MUST be perfectly centered within its respective invisible grid cell. Crucially, each sticker unit MUST be rendered significantly smaller than its grid cell, creating ample space for the buffer (the solid background color) to form around all contents of each panel, ensuring each resulting square has distinct edges and ample empty margins, particularly along its outermost borders. Strictly NO grid lines or visible borders between panels."
+
+CONSISTENCY ::= "Maintain consistent character appearance (hair color, clothing, accessories, etc.) across all 9 panels. Consistency should also apply to the amount of padding/margins around the subject in each panel."
+
+[PANEL_GENERATION_LOGIC]
+Each panel must instantiate the following formula:
+
+[INPUT_DATA]
+P1: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P2: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P3: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P4: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P5: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P6: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P7: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P8: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
+
+P9: ACTION/PROPS="【※2. アクションと小道具を英語で記入】" | TEXT="【※3. 日本語のテキスト】"
