@@ -49,7 +49,7 @@
 4. 実行後、`scripts/gen_package_csv.py` は削除せずそのまま残すこと。
 
 ## Script Rules
-- 出力ファイル名は `outputs/package_info.csv` とし、必ず `outputs/` フォルダに出力すること。
+- 複数人で同時に作業した際にファイルが上書きされるのを防ぐため、出力ファイル名には必ずタイムスタンプを付与し `outputs/package_info_YYYYMMDD_HHMMSS.csv` の形式とすること。必ず `outputs/` フォルダに出力すること。
 - ファイルは必ず `encoding='utf-8-sig'`（BOM付きUTF-8）で開くこと。これによりExcelでの日本語文字化けを防ぐ。
 - 書き込みには必ず Python 標準ライブラリの `csv.writer` を使用すること。カンマ区切り（デフォルト）で書き出すこと（TSVやタブ区切りは禁止）。
 
@@ -71,6 +71,7 @@
 
 ```python
 import csv
+from datetime import datetime
 
 rows = [
     # ヘッダー行
@@ -81,7 +82,10 @@ rows = [
     # ... CSVの数だけ行を追加
 ]
 
-with open('outputs/package_info.csv', 'w', encoding='utf-8-sig', newline='') as f:
+timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+filename = f'outputs/package_info_{timestamp}.csv'
+
+with open(filename, 'w', encoding='utf-8-sig', newline='') as f:
     writer = csv.writer(f)
     for row in rows:
         writer.writerow(row)
